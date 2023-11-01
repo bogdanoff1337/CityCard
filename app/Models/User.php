@@ -18,9 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'card_number',
+        'phone',
+        'login',
         'password',
+        'seed',
+        'role',
     ];
 
     /**
@@ -42,4 +45,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+     public function getSeed(): ?string
+    {
+        return $this->seed;
+    }
+
+    public function setSeed(?string $seed): self
+    {
+        $this->seed = $seed;
+
+        return $this;
+    }
 }

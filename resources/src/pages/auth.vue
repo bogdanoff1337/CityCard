@@ -1,44 +1,59 @@
 <template>
-    <div id="app">
-      <article>
-        <div class="container" :class="{'sign-up-active': signUp}">
-          <form class="sign-up" v-if="signUp" action="#">
-            <h2>Sign Up</h2>
-            <div>Use your phone for registration</div>
-            <input type="text" placeholder="Name" />
-            <input type="phone" placeholder="Phone" />
-            <input type="password" placeholder="Password"/>
-            <input type="password" placeholder="Password"/>
-            <a href="#" @click="toggleForm">Already have profile?</a>
-            <button @click="toggleForm">Sign Up</button>
-          </form>
-          <form class="sign-in" v-else action="#">
-            <h2>Sign In</h2>
-            <div>Use your account</div>
-            <input type="Phone" placeholder="Phone" />
-            <input type="password" placeholder="Password" />
-            <button>Sign In</button>
-          </form>
-        </div>
-      </article>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        signUp: true,
-      };
-    },
-    methods: {
-      toggleForm() {
-        this.signUp = !this.signUp;
+  <div id="app">
+    <article>
+      <div class="container" :class="{'sign-up-active': signUp}">
+        <form class="sign-up" v-if="signUp" action="#">
+          <h2>Sign Up</h2>
+          <div>Use your phone for registration</div>
+          <input type="text" placeholder="Login" />
+          <input type="phone" placeholder="Phone" />
+          <input type="password" placeholder="Password"/>
+          <input type="password" placeholder="Password"/>
+          <input type="text" placeholder="Seed" class="hidden" />
+          <a href="#" @click="toggleForm">Already have profile?</a>
+          <button @click="toggleForm">Sign Up</button>
+        </form>
+        <form class="sign-in" v-else action="#">
+          <h2>Sign In</h2>
+          <div>Use your account</div>
+          <input type="Phone" placeholder="Phone" />
+          <input type="password" placeholder="Password" />
+          <button>Sign In</button>
+        </form>
+      </div>
+    </article>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      signUp: true,
+      user: {
+        role: 'user',
       },
+    };
+  },
+  methods: {
+    toggleForm() {
+      this.signUp = !this.signUp;
+      if (this.signUp) {
+        // Додаємо сід до форми
+        document.querySelector('.sign-up input[type="text"][placeholder="Seed"]').style.display = 'block';
+      } else {
+        // Видаляємо сід з форми
+        document.querySelector('.sign-up input[type="text"][placeholder="Seed"]').style.display = 'none';
+      }
+
+      // Приховуємо поле `seed` для звичайних користувачів
+      if (!this.user.role === 'admin') {
+        document.querySelector('.sign-up input[type="text"][placeholder="Seed"]').setAttribute('class', 'hidden');
+      }
     },
-  };
-  </script>
-  
+  },
+};
+</script>
 
   
 
@@ -83,16 +98,17 @@ button.ghost {
 }
 
 form {
-    background-color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0 50px;
-    max-width: 400px;
-    height: 100%;
-    text-align: center;
-    border-radius: 12px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  max-width: 400px;
+  height: 100%;
+  text-align: center;
+  border-radius: 12px;
+  margin: 0 auto;
 }
 
 input {
