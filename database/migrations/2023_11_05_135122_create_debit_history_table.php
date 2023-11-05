@@ -11,15 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topup_history', function (Blueprint $table) {
+        // Міграція для списувань
+        Schema::create('debit_history', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('card_id');
-            $table->decimal('price' ,8,2);
+            $table->string('type')->default('списування');
+            $table->decimal('price', 10, 2)->unsigned(); 
             $table->timestamps();
-
+        
             
             $table->foreign('card_id')->references('id')->on('cards');
+            $table->foreign('price')->references('price')->on('transports');
         });
+        
+        
     }
 
     /**
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topup_history');
+        Schema::dropIfExists('payment_history');
     }
 };

@@ -11,18 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cards', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('card_number');
-            $table->string('price');
-            $table->string('transport');
-            $table->string('city');
+            $table->string('name');
             $table->timestamps();
-
-          
-            $table->foreign('user_id')->references('id')->on('users');
-
         });
     }
 
@@ -31,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        
-
-        Schema::dropIfExists('cards');
+        Schema::dropIfExists('cities');
     }
 };

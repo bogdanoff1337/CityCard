@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        // Міграція для зарахувань
+        Schema::create('credit_history', function (Blueprint $table) {
             $table->id();
-            $table->string('login');
-            $table->string('phone')->unique();
-            $table->string('password');
-            $table->string('role');
-           
-            $table->rememberToken();
+            $table->unsignedBigInteger('card_id');
+            $table->string('type')->default('зарахування');
+            $table->decimal('amount_in', 10, 2);
             $table->timestamps();
+        
+            $table->foreign('card_id')->references('id')->on('cards');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('credit_history');
     }
 };

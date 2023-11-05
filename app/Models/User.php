@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable
 {
@@ -22,7 +23,6 @@ class User extends Authenticatable
         'phone',
         'login',
         'password',
-        'seed',
         'role',
     ];
 
@@ -46,15 +46,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-     public function getSeed(): ?string
+    public function card(): BelongsTo
     {
-        return $this->seed;
+        return $this->belongsTo(Card::class);
     }
 
-    public function setSeed(?string $seed): self
+    public function City(): BelongsTo
     {
-        $this->seed = $seed;
-
-        return $this;
+        return $this->belongsTo(City::class);
     }
 }

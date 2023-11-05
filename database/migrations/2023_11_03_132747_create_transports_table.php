@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payment_history', function (Blueprint $table) {
+        Schema::create('transports', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('card_id');
-            $table->string('travel_history');
-            $table->string('price');
+            $table->string('name');
+            $table->decimal('price', 10, 2);
             $table->timestamps();
+        });
 
-          
-            $table->foreign('card_id')->references('id')->on('cards');
-
+        Schema::table('transports', function (Blueprint $table) {
+            $table->index('price');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment_history');
+        Schema::dropIfExists('transports');
     }
 };
