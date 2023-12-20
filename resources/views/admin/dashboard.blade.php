@@ -21,9 +21,17 @@
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
+        <form action="{{ route('admin.search') }}" method="GET" class="form-inline mb-2">
+            <div class="form-group mr-2">
+                <label for="search">Пошук за ім'ям:</label>
+                <input type="text" name="search" class="form-control" value="{{ request('search') }}">
+            </div>
+            <button type="submit" class="btn-3d">Пошук</button>
+        </form>
+
         <div class="tab-pane fade show active" id="cities" role="tabpanel" aria-labelledby="cities-tab">
             <h2>Міста</h2>
-            <a href="{{ route('admin.city.create') }}" class="btn btn-primary">Додати місто</a>
+            <a href="{{ route('admin.city.create') }}" class="btn-3d">Додати місто</a>
             <table class="table">
                 <thead>
                     <tr>
@@ -52,13 +60,13 @@
         </div>
         <div class="tab-pane fade" id="ticket-types" role="tabpanel" aria-labelledby="ticket-types-tab">
             <h2>Типи квитків</h2>
-            <a href="{{ route('admin.type.create')}}" class="btn btn-primary">Додати тип квитка</a>
+            <a href="{{ route('admin.type.create')}}" class="btn-3d">Додати тип квитка</a>
             <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Назва</th>
-                        
+
                         <th>Дії</th>
                     </tr>
                 </thead>
@@ -67,7 +75,7 @@
                         <tr>
                             <td>{{ $type->id }}</td>
                             <td>{{ $type->name }}</td>
-                            
+
                             <td>
                                 <a href="{{ route('admin.type.update', ['id' => $type->id]) }}" class="btn btn-sm btn-info">Редагувати</a>
                                 <form action="{{ route('admin.type.delete', ['id' => $type->id]) }}" method="POST" style="display: inline;">
@@ -83,7 +91,7 @@
         </div>
         <div class="tab-pane fade" id="transport" role="tabpanel" aria-labelledby="transport-tab">
             <h2>Транспорт</h2>
-    <a href="{{ route('admin.transport.create')}}" class="btn btn-primary">Додати транспорт</a>
+    <a href="{{ route('admin.transport.create')}}" class="btn-3d">Додати транспорт</a>
     <table class="table">
         <thead>
             <tr>
@@ -110,7 +118,7 @@
                 </tr>
             @endforeach
         </tbody>
-        
+
     </table>
         </div>
     </div>

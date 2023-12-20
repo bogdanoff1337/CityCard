@@ -18,31 +18,31 @@ use Illuminate\Support\Facades\Session;
 class CartController extends Controller
 {
 
-    public function index(): View
+    public function index()
     {
         $user = Session::get('user');
-    
+
         if (!$user) {
             return redirect()->route('auth.login');
         }
-    
+
         $userId = $user->id;
 
         $cards = Card::where('user_id', $userId)->get();
-    
+
         // Повертаємо картки в шаблон
         return view('card.index', [
             'cards' => $cards,
         ]);
     }
-    
-    
+
+
 
     public function CardFormShow() : View
-    {  
+    {
         $cities = City::all();
-        $types = Type::all(); 
-        $transport = Transport::all(); 
+        $types = Type::all();
+        $transport = Transport::all();
 
         return view('card.add', [
             'cities' => $cities,
@@ -51,10 +51,10 @@ class CartController extends Controller
         ]);
     }
 
-       
- 
 
-    
+
+
+
     public function store(Request $request): RedirectResponse
 {
     // Перевірка, чи користувач є в сесії
@@ -79,7 +79,7 @@ class CartController extends Controller
         if (!$city) {
             return redirect()->route('home')->with('error', 'Обране місто не існує.');
         }
-        
+
         $type = Type::find($typeId);
         if (!$type) {
             return redirect()->route('home')->with('error', 'Обраний тип не існує.');
@@ -112,7 +112,7 @@ class CartController extends Controller
     {
     // Знайдіть картку за ID і перевірте, чи вона належить поточному користувачеві
     $card = Card::findOrFail($id);
-    
+
     if ($card) {
         $card->delete();
         return redirect()->route('home')->with('success', 'Картка була успішно видалена.');
@@ -122,37 +122,37 @@ class CartController extends Controller
     }
 
 
-    
+
 
     public function showPaymentOperations() : View
     {
         $user = Session::get('user');
-    
+
         if (!$user) {
             return redirect()->route('auth.login');
         }
-    
+
         $userId = $user->id;
-    
+
         $cards = Card::where('user_id', $userId)->get();
-    
+
         //  операції з таблиць credit_history та debit_history
         foreach ($cards as $card) {
             $card->creditOperations = CreditHistory::where('card_id', $card->id)->get();
             $card->debitOperations = DebitHistory::where('card_id', $card->id)->get();
         }
-    
+
         // Поверніть картки разом з операційними даними в шаблон
         return view('card.payment.index', [
             'cards' => $cards,
         ]);
     }
-    
 
 
 
-    
-    
+
+
+
 }
 
 

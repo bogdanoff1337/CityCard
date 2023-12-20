@@ -1,0 +1,73 @@
+
+body {
+    font-family: 'figtree', sans-serif;
+    background-color: #857b7b;
+}
+
+.btn-3d {
+    display: inline-block;
+    position: relative;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(45deg, #2196F3, #00BCD4);
+    color: #fff;
+}
+
+.btn-3d::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #00BCD4, #2196F3);
+    transition: top 0.3s;
+}
+
+.btn-3d:hover::before {
+    top: 0;
+}
+
+.body-card {
+    background-color: #f8f9fa; /* Фоновий колір */
+    padding: 20px; /* Відступи всередині card-body */
+    border-radius: 10px; /* Закруглені кути */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тінь */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.card-deck {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card {
+    width: 18rem; /* Розмір картки */
+    margin-bottom: 20px; /* Відступ між картками */
+}
+
+.card-header {
+    background-color: #007bff; /* Колір заголовка картки */
+    color: white; /* Колір тексту заголовка картки */
+}
+
+.card-body {
+    background-color: #f8f9fa; /* Колір тіла картки */
+}
+
+.card-title {
+    font-weight: bold; /* Жирний шрифт для заголовків в тілі картки */
+}
+
+.card-footer {
+    background-color: #007bff; /* Колір нижнього колонтитулу картки */
+    color: white; /* Колір тексту нижнього колонтитулу картки */
+}
+

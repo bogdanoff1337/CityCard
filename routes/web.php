@@ -62,3 +62,6 @@ Route::get('/auth/logout', [LoginController::class, 'logout'])->name('auth.logou
 Route::get('/card/add', [CartController::class, 'CardFormShow'])->name('card.add');
 
 Route::post('/card/add', [CartController::class, 'store'])->name('cards.store');
+
+
+Route::get('/search', [AdminController::class, 'search'])->name('admin.search');

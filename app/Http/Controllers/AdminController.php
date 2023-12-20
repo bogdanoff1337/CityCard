@@ -14,12 +14,12 @@ use Illuminate\Http\RedirectResponse;
 
 class AdminController extends Controller
 {
-    public function index() : RedirectResponse
+    public function index()
     {
         $cities = City::all();
-        $types = Type::all(); 
+        $types = Type::all();
         $transport = Transport::all();
-       
+
 
         if (Session::has('user') && Session::get('user')->role === 'admin') {
 
@@ -32,6 +32,18 @@ class AdminController extends Controller
             return redirect('home');
         }
     }
+
+    public function search(Request $request)
+    {
+    $searchTerm = $request->input('search');
+
+    $cities = City::where('name', 'like', "%{$searchTerm}%")->get();
+    $types = Type::where('name', 'like', "%{$searchTerm}%")->get();
+    $transports = Transport::where('name', 'like', "%{$searchTerm}%")->get();
+
+    return view('admin.dashboard', compact('cities', 'types', 'transports'));
+    }
+
 
     public function createCity() : View
     {
@@ -52,7 +64,7 @@ class AdminController extends Controller
 
         $city = city::findOrFail($cityid);
 
-        
+
         $cardsWithCity = Card::where('city_id', $city->id)->count();
 
         if ($cardsWithCity) {
@@ -61,7 +73,7 @@ class AdminController extends Controller
 
         if (Session::has('user') && Session::get('user')->role === 'admin') {
             $city->delete();
-    
+
             return redirect()->route('admin.dashboard');
         } else {
             return redirect('home');
@@ -102,9 +114,9 @@ class AdminController extends Controller
     {
         $ticketType = new Type();
         $ticketType->name = $request->input('name');
-        
+
         $ticketType->save();
-    
+
         return redirect()->route('admin.dashboard');
     }
 
@@ -123,7 +135,7 @@ class AdminController extends Controller
 
         if (Session::has('user') && Session::get('user')->role === 'admin') {
             $type->delete();
-    
+
             return redirect()->route('admin.dashboard');
         } else {
             return redirect('home');
@@ -141,15 +153,15 @@ class AdminController extends Controller
 
     public function updateType(Request $request, int $id): RedirectResponse
     {
-    
+
     $name = $request->input('name');
-    
-   
+
+
     $type = Type::find($id);
 
-    
+
     $type->name = $name;
-    
+
     $type->update();
 
     // Перенаправляємо на сторінку індексу адміністраторської панелі
@@ -167,7 +179,7 @@ class AdminController extends Controller
         $transport->name = $request->input('name');
         $transport->price = $request->input('price');
         $transport->save();
-    
+
         return redirect()->route('admin.dashboard');
     }
 
@@ -227,7 +239,7 @@ class AdminController extends Controller
 
         if (Session::has('user') && Session::get('user')->role === 'admin') {
             $transport->delete();
-    
+
             return redirect()->route('admin.dashboard');
         } else {
             return redirect('home');
