@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             NewCitySeeder::class,
             DebitHistorySeeder::class,
             CreditHistorySeeder::class,
+            NewAdminSeeder::class,
             // Додайте інші сідери, якщо вони є
         ]);
 
